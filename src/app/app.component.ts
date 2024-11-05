@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { TaskActions } from './state/tasks/task.actions';
+import { Task } from './tasks/task.model';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +12,5 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'tusks';
+
 }
