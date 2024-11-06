@@ -1,11 +1,12 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { StorageActions, TaskActions } from '../../state/tasks/task.actions';
 import { Task } from '../task.model';
-import { selectAllTasks } from '../../state/tasks/task.selectors';
-import { TaskService } from '../task.service';
+import { AppState, selectAllTasks } from '../../state/tasks/task.selectors';
 import { CommonModule } from '@angular/common';
 import { TaskItemComponent } from './task-item/task-item.component';
+import { Observable } from 'rxjs';
+import { TaskState } from '../../state/tasks/task.reducer';
 
 @Component({
   selector: 'app-tasks-list',
@@ -15,7 +16,6 @@ import { TaskItemComponent } from './task-item/task-item.component';
   styleUrl: './tasks-list.component.css',
 })
 export class TasksListComponent{
-  // private store: Store = inject(Store);
-  private ts: TaskService = inject(TaskService);
-  public tasks$ = this.ts.getTasks();
+  private store: Store<AppState> = inject(Store);
+  public tasks$: Observable<Task[]> = this.store.select(selectAllTasks);
 }
