@@ -1,1 +1,4 @@
-<p>details works!</p>
+<app-return-button />
+<h2>{{ (task$ | async)?.title }}</h2>
+<h4>{{ (task$ | async)?.deadline }}</h4>
+<p>{{ (task$ | async)?.desc }}</p>

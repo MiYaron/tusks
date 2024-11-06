@@ -1,31 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Task } from './task.model';
+import { filter, map, Observable, of } from 'rxjs';
+import { generateMockTasks, Task } from './task.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
+  private tasks$: Observable<Task[]> = of(generateMockTasks(10))
  
-  public loadTasks(): Observable<Task[]> {
-    return of(this.generateMockTasks(10));
+  public getTasks(): Observable<Task[]> {
+    return this.tasks$;
   }
 
-  //********************** Mock Data ************************************/
-  private mock: Task = {
-    id: '0',
-    title: 'Mock Task',
-    desc: 'This is just a mock and not a real task',
-    deadline: new Date('2024-11-24').toString(),
-    isDone: false
-  }
-
-  private generateMockTasks(count: number): Task[] {
-    return Array.from({ length: count }).map((_, index) => {
-      return {
-        ...this.mock,
-        id: (index).toString()
-      };
-    });
+  public getTaskById(id: string): Observable<Task | undefined> {
+    return this.tasks$.pipe(
+      map(tasks => tasks.find(task => task.id === id))
+    );
   }
 }

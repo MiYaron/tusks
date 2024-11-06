@@ -5,22 +5,17 @@ import { Task } from '../task.model';
 import { selectAllTasks } from '../../state/tasks/task.selectors';
 import { TaskService } from '../task.service';
 import { CommonModule } from '@angular/common';
+import { TaskItemComponent } from './task-item/task-item.component';
 
 @Component({
   selector: 'app-tasks-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TaskItemComponent],
   templateUrl: './tasks-list.component.html',
   styleUrl: './tasks-list.component.css',
 })
-export class TasksListComponent implements OnInit{
+export class TasksListComponent{
   // private store: Store = inject(Store);
   private ts: TaskService = inject(TaskService);
-  public tasks$ = this.ts.loadTasks();
-  public tests = [1,2,3];
-
-  ngOnInit(): void {
-    this.tasks$ = this.ts.loadTasks();
-  }
-
+  public tasks$ = this.ts.getTasks();
 }

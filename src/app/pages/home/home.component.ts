@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TasksListComponent } from '../../tasks/tasks-list/tasks-list.component';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,5 +11,9 @@ import { SearchBarComponent } from '../../components/search-bar/search-bar.compo
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
+  private router: Router = inject(Router);
 
+  addTask() {
+    this.router.navigate(['new-task']);
+  }
 }
