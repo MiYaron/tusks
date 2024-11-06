@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { StorageActions, TaskActions } from './task.actions';
-import { mock, Task } from '../../tasks/task.model';
+import { Task } from '../../tasks/task.model';
 
 export const taskFeatureKey = 'task';
 
@@ -18,4 +18,8 @@ export const initialState: TaskState = {
 
 export const tasksReducer = createReducer(
   initialState,
+  on(TaskActions['[Tasks]AddTask'], (state, {task}) => ({
+    ...state,
+    tasksList: [...state.tasksList, task],
+  }))
 );

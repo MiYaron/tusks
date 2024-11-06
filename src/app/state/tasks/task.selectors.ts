@@ -10,3 +10,7 @@ export const selectAllTasks =  createSelector(
     selectTasks,
     (state: TaskState) => state.tasksList
 );
+export const selectTaskById = (id: string) => createSelector(
+    selectTasks,
+    (state: TaskState) => state.tasksList.find((task)=>{task.id==id})
+)
