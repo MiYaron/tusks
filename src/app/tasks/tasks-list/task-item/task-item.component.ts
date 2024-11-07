@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { Task } from '../../task.model';
 import { Store } from '@ngrx/store';
 import { TaskActions } from '../../../state/tasks/task.actions';
-import { AppState } from '../../../state/tasks/task.selectors';
 import { CommonModule } from '@angular/common';
+import { AppState } from '../../../state/app.state';
 
 @Component({
   selector: 'app-task-item',

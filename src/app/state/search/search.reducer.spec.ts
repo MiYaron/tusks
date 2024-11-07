@@ -1,11 +1,11 @@
-import { tasksReducer, initialState } from './task.reducer';
+import { searchReducer, initialState } from './search.reducer';
 
-describe('Task Reducer', () => {
+describe('Search Reducer', () => {
   describe('an unknown action', () => {
     it('should return the previous state', () => {
       const action = {} as any;
 
-      const result = tasksReducer(initialState, action);
+      const result = searchReducer(initialState, action);
 
       expect(result).toBe(initialState);
     });

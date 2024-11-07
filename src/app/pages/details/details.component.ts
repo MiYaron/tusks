@@ -1,12 +1,13 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { Task } from '../../tasks/task.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ReturnButtonComponent } from '../../components/return-button/return-button.component';
+import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AppState, selectTaskById } from '../../state/tasks/task.selectors';
+import { ReturnButtonComponent } from '../../components/return-button/return-button.component';
+import { selectTaskById } from '../../state/tasks/task.selectors';
 import { TaskActions } from '../../state/tasks/task.actions';
+import { AppState } from '../../state/app.state';
+import { Task } from '../../tasks/task.model';
 import {v4 as uuid} from 'uuid';
 
 @Component({
@@ -48,11 +49,9 @@ export class DetailsComponent implements OnInit, OnDestroy {
     if (this.taskId === '') {
       this.taskId = uuid();
       this.deadline = this.mockDate();
-      const mockData: Task = this.buildTask();
-      this.store.dispatch((TaskActions['[Tasks]AddTask']({task: mockData})));
+      this.store.dispatch((TaskActions['[Tasks]AddTask']({task: this.buildTask()})));
     } else {
-      const mockData: Task = this.buildTask();
-      this.store.dispatch((TaskActions['[Tasks]EditTask']({task: mockData})));
+      this.store.dispatch((TaskActions['[Tasks]EditTask']({task: this.buildTask()})));
     }
 
     

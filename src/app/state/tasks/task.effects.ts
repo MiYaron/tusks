@@ -1,11 +1,12 @@
 import { inject, Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { AppState, selectAllTasks } from './task.selectors';
-import { Store } from '@ngrx/store';
-import { TaskService } from '../../tasks/task.service';
-import { StorageActions, TaskActions } from './task.actions';
 import { catchError, from, map, of, switchMap, withLatestFrom } from 'rxjs';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { AppState } from '../app.state';
 import { Task } from '../../tasks/task.model';
+import { StorageActions, TaskActions } from './task.actions';
+import { selectTasksState } from './task.selectors';
+import { TaskService } from '../../tasks/task.service';
 
 
 
@@ -28,8 +29,8 @@ export class TaskEffects {
 
   saveTasks$ = createEffect(() => this.actions$.pipe(
       ofType(...Object.values(TaskActions)),
-      withLatestFrom(this.store.select(selectAllTasks)),
-      switchMap(([_,tasks]) => from(this.ts.setTasks(tasks)))
+      withLatestFrom(this.store.select(selectTasksState)),
+      switchMap(([_,state]) => from(this.ts.setTasks(state.tasksList)))
     ),
     {dispatch: false}
   )
