@@ -1,8 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { TaskActions } from './state/tasks/task.actions';
-import { Task } from './tasks/task.model';
 import { HomeComponent } from './pages/home/home.component';
 
 @Component({

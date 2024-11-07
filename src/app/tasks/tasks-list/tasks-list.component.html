@@ -1,7 +1,13 @@
 <div>
-  <ul>
-    @for(task of tasks$ | async; track task.id) {
-    <app-task-item [task]="task"></app-task-item>
-    }
-  </ul>
+  @for(taskGroup of (tasks$ | async | groupTasks) | keyvalue; track
+  taskGroup.key) {
+  <div>
+    <div class="task-date-header">{{ taskGroup.key }}</div>
+    <ul>
+      @for(task of taskGroup.value; track task.id) {
+      <app-task-item [task]="task"></app-task-item>
+      }
+    </ul>
+  </div>
+  }
 </div>

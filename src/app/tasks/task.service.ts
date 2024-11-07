@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { filter, map, Observable, of } from 'rxjs';
-import { generateMockTasks, Task } from './task.model';
+import { map, Observable, of } from 'rxjs';
+import { Mock, Task } from './task.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
-  private tasks$: Observable<Task[]> = of(generateMockTasks(10))
+  private tasks$: Observable<Task[]> = of(Mock.getListOfTasks(10))
  
   public getTasks(): Observable<Task[]> {
     return this.tasks$;
