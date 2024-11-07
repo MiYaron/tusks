@@ -1,4 +1,4 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { createSelector } from '@ngrx/store';
 import { TaskState } from './task.reducer';
 
 export interface AppState {
@@ -12,5 +12,5 @@ export const selectAllTasks =  createSelector(
 );
 export const selectTaskById = (id: string) => createSelector(
     selectTasks,
-    (state: TaskState) => state.tasksList.find((task)=>{task.id==id})
+    (state: TaskState) => state.tasksList.find(task => task.id === id)
 )

@@ -3,6 +3,15 @@
     [id]="'checkbox' + task?.id"
     type="checkbox"
     [checked]="task?.isDone"
+    (click)="markAsDone()"
   />
-  <p class="task-title" (click)="showDetails()">{{ task?.title }}</p>
+  <p>{{ task?.id }}</p>
+  <p
+    class="task-title"
+    [ngClass]="task?.isDone ? 'done' : ''"
+    (click)="showDetails()"
+  >
+    {{ task?.title }}
+  </p>
+  <button (click)="deleteTask()">DELETE</button>
 </li>

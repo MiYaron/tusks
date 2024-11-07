@@ -5,7 +5,8 @@ import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { tasksReducer } from './state/tasks/task.reducer';
+import { TaskEffects } from './state/tasks/task.effects';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideStore({tasks: tasksReducer}), provideEffects()]
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideStore({tasks: tasksReducer}), provideEffects([TaskEffects])]
 };

@@ -14,6 +14,6 @@ export class HomeComponent {
   private router: Router = inject(Router);
 
   addTask() {
-    this.router.navigate(['new-task']);
+    this.router.navigate(['task']);
   }
 }

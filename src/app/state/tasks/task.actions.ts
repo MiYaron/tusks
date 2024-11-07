@@ -14,8 +14,8 @@ export const TaskActions = createActionGroup({
   source: 'Task',
   events: {
     '[Tasks] Add Task': props<{task: Task}>(),
-    '[Tasks] Edit Task': props<{task: Task}>,
-    '[Tasks] Mark As Done': props<{id: string, status: boolean}>(),
+    '[Tasks] Edit Task': props<{task: Task}>(),
+    '[Tasks] Mark As Done': props<{id: string}>(),
     '[Tasks] Remove Task': props<{id: string}>(),
   }
 });
