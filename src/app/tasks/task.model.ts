@@ -27,8 +27,8 @@ export class Mock {
   }
 
   private static randomDate() {
-    const day = Math.floor(Math.random() * 2) + 15;
-    const month = Math.floor(Math.random() * 2) + 5;
+    const day = Math.floor(Math.random() * 3) + 10;
+    const month = Math.floor(Math.random() * 5) + 3;
 
     return `2024-${month}-${day}`
   }

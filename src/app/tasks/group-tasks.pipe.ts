@@ -6,27 +6,30 @@ import { Task } from './task.model';
   standalone: true
 })
 export class GroupTasksPipe implements PipeTransform {
-
-  transform(tasks: Task[] | null): {[header: string]: Task[]} {
-    if (!tasks) return {};
-
-    tasks = tasks.sort ((a,b) => {
+  transform(tasks: Task[] | null): {date: string, tasks: Task[]}[] {
+    if (!tasks || tasks.length === 0) {
+      return [];
+    }
+    
+    let sortedTasks = [...tasks];
+    sortedTasks = sortedTasks.sort((a, b) => {
       return new Date(a.deadline).getTime() - new Date(b.deadline).getTime();
     });
 
-    const groupedTasks: {[header: string]: Task[]} = {};
+    const groupedTasks: {date: string, tasks: Task[]}[] = [];
+    let lastDate = '';
 
-    tasks.forEach (task => {
-      const date = new Date(task.deadline).toDateString();
+    sortedTasks.forEach (task => {
+      const taskDate = new Date(task.deadline).toDateString();
 
-      if (!groupedTasks[date]) {
-        groupedTasks[date] = [];
+      if (taskDate === lastDate) {
+        groupedTasks[groupedTasks.length-1].tasks.push(task);
+      } else {
+        groupedTasks.push({date: taskDate, tasks:[task]});
+        lastDate = taskDate;
       }
-
-      groupedTasks[date].push(task);
     });
 
     return groupedTasks;
   }
-
 }
