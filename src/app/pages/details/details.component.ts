@@ -27,7 +27,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   public task$?: Observable<Task | undefined>;
   public title = "Mock Title";
   public desc = "Mock Description";
-  public deadline = "2024-11-26";
+  public deadline = "2024-11-05";
 
   public ngOnInit(): void {
     this.subscription = this.activatedRoute.paramMap.subscribe(params => {
@@ -47,6 +47,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
     if (this.taskId === '') {
       this.taskId = uuid();
+      this.deadline = this.mockDate();
       const mockData: Task = this.buildTask();
       this.store.dispatch((TaskActions['[Tasks]AddTask']({task: mockData})));
     } else {
@@ -66,5 +67,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
       deadline: this.deadline,
       isDone: false,
     }
+  }
+
+  private mockDate() {
+    const day = Math.floor(Math.random() * 2) + 15;
+    const month = Math.floor(Math.random() * 2) + 5;
+
+    return `2024-${month}-${day}`
   }
 }
