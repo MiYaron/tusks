@@ -1,12 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Task } from './task.model';
 
+export interface GroupedTasks {
+  date: string,
+  tasks: Task[],
+}
+
 @Pipe({
   name: 'groupTasks',
   standalone: true
 })
 export class GroupTasksPipe implements PipeTransform {
-  transform(tasks: Task[] | null): {date: string, tasks: Task[]}[] {
+  public transform(tasks: Task[] | null): GroupedTasks[] {
     if (!tasks || tasks.length === 0) {
       return [];
     }
@@ -16,10 +21,14 @@ export class GroupTasksPipe implements PipeTransform {
       return new Date(a.deadline).getTime() - new Date(b.deadline).getTime();
     });
 
-    const groupedTasks: {date: string, tasks: Task[]}[] = [];
+    return this.groupSortedTasks(sortedTasks);
+  }
+
+  private groupSortedTasks(tasks: Task[]): GroupedTasks[] {
+    const groupedTasks: GroupedTasks[] = [];
     let lastDate = '';
 
-    sortedTasks.forEach (task => {
+    tasks.forEach (task => {
       const taskDate = new Date(task.deadline).toDateString();
 
       if (taskDate === lastDate) {
