@@ -70,8 +70,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   private mockDate() {
     const day = Math.floor(Math.random() * 2) + 15;
-    const month = Math.floor(Math.random() * 2) + 5;
+    const month = Math.floor(Math.random() * 2) + 2;
 
-    return `2024-${month}-${day}`
+    return `2025-${month}-${day}`
   }
 }

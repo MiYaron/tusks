@@ -1,17 +1,17 @@
-<li [id]="task?.id">
+<li [id]="task.id">
   <input
-    [id]="'checkbox' + task?.id"
+    [id]="'checkbox' + task.id"
     type="checkbox"
-    [checked]="task?.isDone"
+    [checked]="task.isDone"
     (click)="markAsDone()"
   />
-  <p>{{ task?.id }}</p>
+  <p>{{ task.id }}</p>
   <p
     class="task-title"
-    [ngClass]="task?.isDone ? 'done' : ''"
+    [ngClass]="task.isDone ? 'done' : ''"
     (click)="showDetails()"
   >
-    {{ task?.title }}
+    {{ task.title }}
   </p>
   <button (click)="deleteTask()">DELETE</button>
 </li>

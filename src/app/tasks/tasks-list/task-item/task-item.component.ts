@@ -16,22 +16,16 @@ import { AppState } from '../../../state/app.state';
 export class TaskItemComponent {
   private store: Store<AppState> = inject(Store);
   private router = inject(Router);
-  @Input() task?: Task;
+  @Input() task!: Task;
 
   public showDetails() {
-    if (this.task?.id) {
-      this.router.navigate(['/task', this.task.id]);
-    }
+    this.router.navigate(['/task', this.task.id]);
   }
 
   public markAsDone() {
-    if (this.task?.id) {
-      this.store.dispatch(TaskActions['mark']({id: this.task.id}));
-    }
+    this.store.dispatch(TaskActions['mark']({id: this.task.id}));
   }
   public deleteTask() {
-    if (this.task?.id) {
-      this.store.dispatch(TaskActions['remove']({id: this.task.id}));
-    }
+    this.store.dispatch(TaskActions['remove']({id: this.task.id}));
   }
 }
