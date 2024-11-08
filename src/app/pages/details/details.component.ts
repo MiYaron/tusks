@@ -49,9 +49,9 @@ export class DetailsComponent implements OnInit, OnDestroy {
     if (this.taskId === '') {
       this.taskId = uuid();
       this.deadline = this.mockDate();
-      this.store.dispatch((TaskActions['[Tasks]AddTask']({task: this.buildTask()})));
+      this.store.dispatch((TaskActions['add']({task: this.buildTask()})));
     } else {
-      this.store.dispatch((TaskActions['[Tasks]EditTask']({task: this.buildTask()})));
+      this.store.dispatch((TaskActions['edit']({task: this.buildTask()})));
     }
 
     

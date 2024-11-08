@@ -21,6 +21,6 @@ export class TasksListComponent implements OnInit{
   public tasks$: Observable<Task[]> = this.store.select(selectTasks);
 
   public ngOnInit() {
-    this.store.dispatch(StorageActions['[Storage]LoadTasks']());
+    this.store.dispatch(StorageActions['load']());
   }
 }

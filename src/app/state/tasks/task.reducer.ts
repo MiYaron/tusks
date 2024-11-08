@@ -18,53 +18,40 @@ export const initialState: TaskState = {
 
 export const tasksReducer = createReducer(
   initialState,
-  on(TaskActions['[Tasks]AddTask'], (state, {task}) => ({
+  on(TaskActions['add'], (state, {task}) => ({
         ...state,
         tasksList: [...state.tasksList, task]
   })),
-  on(TaskActions['[Tasks]EditTask'], (state, {task}) => {
-    const updatedList = state.tasksList.map(existingTask => {
-      if (existingTask.id === task.id) {
-        return {
-          ...existingTask,
-          title: task.title,
-          desc: task.desc,
-          deadline: task.deadline
-        };
-      }
-      return existingTask;
-    });
-
-    return {
-      ...state,
-      tasksList: updatedList
-    };
-  }),
-  on(TaskActions['[Tasks]MarkAsDone'], (state, {id}) => ({
+  on(TaskActions['edit'], (state, {task}) => ({
+    ...state,
+    tasksList: state.tasksList.map(currTask => 
+      currTask.id !== task.id ? currTask : task
+    )
+  })),
+  on(TaskActions['mark'], (state, {id}) => ({
     ...state,
     tasksList: state.tasksList.map ((task) => 
       task.id === id ? { ...task, isDone: !task.isDone } : task
     )
   })),
-  on(TaskActions['[Tasks]RemoveTask'], (state, {id}) => ({
+  on(TaskActions['remove'], (state, {id}) => ({
     ...state,
     tasksList: state.tasksList.filter((task) => task.id !== id)
   })),
 
-  on(StorageActions['[Storage]LoadTasks'], (state) => ({
+  on(StorageActions['load'], (state) => ({
     ...state,
     status: 'loading' as 'loading'
   })),
-  on(StorageActions['[Storage]LoadSuccess'], (state, {tasks}) => ({
+  on(StorageActions['onSuccess'], (state, {tasks}) => ({
     ...state,
     tasksList: tasks,
     error: null,
     status: 'success' as 'success',
   })),
-  on (StorageActions['[Storage]LoadFailure'], (state, {error}) => ({
+  on (StorageActions['onFailure'], (state, {error}) => ({
     ...state,
     error: error,
     status: 'error' as 'error'
   }))
-
 );

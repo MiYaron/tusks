@@ -17,11 +17,11 @@ export class TaskEffects {
   private ts: TaskService = inject(TaskService);
 
   loadTasks$ = createEffect(() => this.actions$.pipe(
-      ofType(StorageActions['[Storage]LoadTasks']),
+      ofType(StorageActions['load']),
       switchMap (() =>
         from((this.ts.getTasks())).pipe(
-          map((tasks: Task[]) => StorageActions['[Storage]LoadSuccess']({tasks})),
-          catchError((error) => of(StorageActions['[Storage]LoadFailure']({error})))
+          map((tasks: Task[]) => StorageActions['onSuccess']({tasks})),
+          catchError((error) => of(StorageActions['onFailure']({error})))
         )
       )
     )

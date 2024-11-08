@@ -25,14 +25,13 @@ export class TaskItemComponent {
   }
 
   public markAsDone() {
-    console.log ("MARK AS DONE")
     if (this.task?.id) {
-      this.store.dispatch(TaskActions['[Tasks]MarkAsDone']({id: this.task.id}));
+      this.store.dispatch(TaskActions['mark']({id: this.task.id}));
     }
   }
   public deleteTask() {
     if (this.task?.id) {
-      this.store.dispatch(TaskActions['[Tasks]RemoveTask']({id: this.task.id}));
+      this.store.dispatch(TaskActions['remove']({id: this.task.id}));
     }
   }
 }
