@@ -13,7 +13,7 @@ export class DragDirective implements OnInit{
   private timeout: any = null;
   private holdDuration = 100;
 
-  @Input() appDrag!: () => void;
+  @Input() appDrag?: () => void;
   
   ngOnInit() {
     this.renderer.setStyle(this.el.nativeElement, 'position', 'relative');
@@ -36,8 +36,6 @@ export class DragDirective implements OnInit{
   @HostListener('touchmove', ['$event'])
   onPointerMove(event: PointerEvent | TouchEvent) {
     if (this.isDragging) {
-      event.preventDefault();
-
       const clientX = event instanceof TouchEvent ? event.touches[0].clientX : (event as PointerEvent).clientX;
       const deltaX = clientX - this.startX;
       this.renderer.setStyle(this.el.nativeElement, 'transform', `translateX(${deltaX}px)`);
@@ -53,7 +51,7 @@ export class DragDirective implements OnInit{
       const clientX = event instanceof TouchEvent ? event.changedTouches[0].clientX : (event as PointerEvent).clientX;
       const deltaX = clientX - this.startX;
       if (deltaX > window.innerWidth * 0.3) {
-        this.appDrag();
+        this.appDrag?.()
       }
 
       this.renderer.setStyle(this.el.nativeElement, 'transform', 'translateX(0)');
