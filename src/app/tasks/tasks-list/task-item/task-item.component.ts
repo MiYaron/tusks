@@ -5,11 +5,12 @@ import { Store } from '@ngrx/store';
 import { TaskActions } from '../../../state/tasks/task.actions';
 import { CommonModule } from '@angular/common';
 import { AppState } from '../../../state/app.state';
+import { DragDirective } from './../../../directives/drag.directive';
 
 @Component({
   selector: 'app-task-item',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DragDirective],
   templateUrl: './task-item.component.html',
   styleUrl: './task-item.component.css'
 })
@@ -25,6 +26,7 @@ export class TaskItemComponent {
   public markAsDone() {
     this.store.dispatch(TaskActions['mark']({id: this.task.id}));
   }
+  
   public deleteTask() {
     this.store.dispatch(TaskActions['remove']({id: this.task.id}));
   }

@@ -1,11 +1,10 @@
-<li [id]="task.id">
+<li [id]="task.id" [appDrag]="deleteTask.bind(this)">
   <input
     [id]="'checkbox' + task.id"
     type="checkbox"
     [checked]="task.isDone"
     (click)="markAsDone()"
   />
-  <p>{{ task.id }}</p>
   <p
     class="task-title"
     [ngClass]="task.isDone ? 'done' : ''"
@@ -13,5 +12,4 @@
   >
     {{ task.title }}
   </p>
-  <button (click)="deleteTask()">DELETE</button>
 </li>
