@@ -12,6 +12,6 @@ import { GroupTasksPipe } from '../group-tasks.pipe';
   styleUrl: './tasks-list.component.css',
 })
 export class TasksListComponent{
-  private ts: TaskService = inject(TaskService);
-  public tasks$ = this.ts.getTasks();
+  private taskService = inject(TaskService);
+  public tasks$ = this.taskService.getTasks();
 }

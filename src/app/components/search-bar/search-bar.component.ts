@@ -11,10 +11,8 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 export class SearchBarComponent {
   title = new FormControl('', [Validators.required]);
 
-  public search() {
-    console.log (this.title);
+  public search(): void {
     this.title.setValue('');
-
   }
 
 }

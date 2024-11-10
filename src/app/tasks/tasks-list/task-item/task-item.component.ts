@@ -1,6 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Task } from '../../task.model';
+import { TASK } from '../../../app.paths';
 
 @Component({
   selector: 'app-task-item',
@@ -13,9 +14,9 @@ export class TaskItemComponent {
   private router = inject(Router);
   @Input() task?: Task;
 
-  public showDetails() {
+  public showDetails(): void {
     if (this.task?.id) {
-      this.router.navigate(['/task', this.task.id]);
+      this.router.navigate([TASK, this.task.id]);
     }
   }
 }
