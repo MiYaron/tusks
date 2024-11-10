@@ -18,15 +18,15 @@ export class TaskItemComponent {
   private router = inject(Router);
   @Input() task!: Task;
 
-  public showDetails() {
+  public showDetails(): void {
     this.router.navigate(['/task', this.task.id]);
   }
 
-  public markAsDone() {
+  public markAsDone(): void {
     this.store.dispatch(TaskActions['mark']({id: this.task.id}));
   }
   
-  public deleteTask() {
+  public deleteTask(): void {
     this.store.dispatch(TaskActions['remove']({id: this.task.id}));
   }
 }

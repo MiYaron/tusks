@@ -11,7 +11,7 @@ export class TaskService {
     return tasks? await JSON.parse(tasks) : [];
   }
 
-  public async setTasks(tasks: Task[]) {
+  public async setTasks(tasks: Task[]): Promise<void> {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }
 }

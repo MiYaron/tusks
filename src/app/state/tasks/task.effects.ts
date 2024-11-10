@@ -8,18 +8,16 @@ import { StorageActions, TaskActions } from './task.actions';
 import { selectTasksState } from './task.selectors';
 import { TaskService } from '../../tasks/task.service';
 
-
-
 @Injectable()
 export class TaskEffects {
   private store: Store<AppState> = inject(Store);
-  private actions$: Actions = inject(Actions);
-  private ts: TaskService = inject(TaskService);
+  private actions$ = inject(Actions);
+  private taskService = inject(TaskService);
 
   loadTasks$ = createEffect(() => this.actions$.pipe(
       ofType(StorageActions['load']),
       switchMap (() =>
-        from((this.ts.getTasks())).pipe(
+        from((this.taskService.getTasks())).pipe(
           map((tasks: Task[]) => StorageActions['onSuccess']({tasks})),
           catchError((error) => of(StorageActions['onFailure']({error})))
         )
@@ -30,7 +28,7 @@ export class TaskEffects {
   saveTasks$ = createEffect(() => this.actions$.pipe(
       ofType(...Object.values(TaskActions)),
       withLatestFrom(this.store.select(selectTasksState)),
-      switchMap(([_,state]) => from(this.ts.setTasks(state.tasksList)))
+      switchMap(([_,state]) => from(this.taskService.setTasks(state.tasksList)))
     ),
     {dispatch: false}
   )

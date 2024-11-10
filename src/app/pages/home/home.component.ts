@@ -10,10 +10,11 @@ import { SearchBarComponent } from '../../components/search-bar/search-bar.compo
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
+
 export class HomeComponent {
   private router: Router = inject(Router);
 
-  public addTask() {
+  public addTask(): void {
     this.router.navigate(['task']);
   }
 }

@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class ReturnButtonComponent {
   private router: Router = inject(Router);
 
-  goHome() {
+  public goHome(): void {
     this.router.navigate([""]);
   }
 }

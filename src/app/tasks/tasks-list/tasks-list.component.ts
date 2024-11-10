@@ -20,7 +20,7 @@ export class TasksListComponent implements OnInit{
   private store: Store<AppState> = inject(Store);
   public tasks$: Observable<Task[]> = this.store.select(selectTasks);
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.store.dispatch(StorageActions['load']());
   }
 }
