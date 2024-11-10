@@ -26,7 +26,7 @@ export class Mock {
       return tasks;
   }
 
-  private static randomDate() {
+  private static randomDate(): string {
     const day = Math.floor(Math.random() * 3) + 10;
     const month = Math.floor(Math.random() * 5) + 3;
 

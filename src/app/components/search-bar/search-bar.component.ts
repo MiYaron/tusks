@@ -9,7 +9,7 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
   styleUrl: './search-bar.component.css'
 })
 export class SearchBarComponent {
-  title = new FormControl('', [Validators.required]);
+  public title = new FormControl('', [Validators.required]);
 
   public search(): void {
     this.title.setValue('');

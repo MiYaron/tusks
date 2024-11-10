@@ -19,8 +19,8 @@ export class DetailsComponent implements OnInit {
   private ts: TaskService = inject(TaskService);
   private destroyRef: DestroyRef = inject(DestroyRef);
   
-  task$?: Observable<Task | undefined>;
-  subscription?: Subscription;
+  public task$?: Observable<Task | undefined>;
+  public subscription?: Subscription;
 
   public ngOnInit(): void {
     this.subscription = this.route.paramMap.pipe(
