@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Task } from '../../tasks/task.model';
 import { TaskService } from '../../tasks/task.service';
