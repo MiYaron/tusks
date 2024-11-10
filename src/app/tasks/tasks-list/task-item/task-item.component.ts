@@ -1,16 +1,15 @@
 import { Component, inject, Input } from '@angular/core';
-import { Router } from '@angular/router';
-import { Task } from '../../task.model';
-import { Store } from '@ngrx/store';
-import { TaskActions } from '../../../state/tasks/task.actions';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Task } from '../../task.model';
 import { AppState } from '../../../state/app.state';
-import { DragDirective } from './../../../directives/drag.directive';
+import { TaskActions } from '../../../state/tasks/task.actions';
 
 @Component({
   selector: 'app-task-item',
   standalone: true,
-  imports: [CommonModule, DragDirective],
+  imports: [CommonModule],
   templateUrl: './task-item.component.html',
   styleUrl: './task-item.component.css'
 })

@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
-import { catchError, from, map, of, switchMap, withLatestFrom } from 'rxjs';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { AppState } from '../app.state';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, from, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { Task } from '../../tasks/task.model';
+import { AppState } from '../app.state';
 import { StorageActions, TaskActions } from './task.actions';
 import { selectTasksState } from './task.selectors';
 import { TaskService } from '../../tasks/task.service';
