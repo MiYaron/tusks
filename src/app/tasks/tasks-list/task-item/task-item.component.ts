@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { Task } from '../../task.model';
 import { AppState } from '../../../state/app.state';
 import { TaskActions } from '../../../state/tasks/task.actions';
+import { TASK } from '../../../app.paths';
 
 @Component({
   selector: 'app-task-item',
@@ -19,7 +20,7 @@ export class TaskItemComponent {
   @Input() task!: Task;
 
   public showDetails(): void {
-    this.router.navigate(['/task', this.task.id]);
+    this.router.navigate([TASK, this.task.id]);
   }
 
   public markAsDone(): void {
