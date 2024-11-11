@@ -1,15 +1,19 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { Observable } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
+
+import {v4 as uuid} from 'uuid';
+
+import { Path } from '../../app.paths';
+import { Task } from '../../tasks/task.model';
 import { ReturnButtonComponent } from '../../components/return-button/return-button.component';
 import { selectTaskById } from '../../state/tasks/task.selectors';
 import { TaskActions } from '../../state/tasks/task.actions';
 import { AppState } from '../../state/app.state';
-import { Task } from '../../tasks/task.model';
-import {v4 as uuid} from 'uuid';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-details',
@@ -46,7 +50,7 @@ export class DetailsComponent implements OnInit{
       this.store.dispatch((TaskActions['edit']({task: this.buildTask()})));
     }
     
-    this.router.navigate([""]);
+    this.router.navigate([Path.HOME]);
   }
 
   private initFields(): void {
@@ -54,7 +58,6 @@ export class DetailsComponent implements OnInit{
     this.title = "Task to do sometime"
     this.desc = "This is a task that is needed to be done by some random date"
     this.deadline = "2024-11-05"
-
 
     this.activatedRoute.paramMap.pipe(
       takeUntilDestroyed(this.destroyRef)

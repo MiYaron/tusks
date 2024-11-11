@@ -7,6 +7,6 @@ export const initialState = '';
 
 export const searchReducer = createReducer(
   initialState,
-  on (setQuery, (state, {query}) => query)
+  on (setQuery, (_, {query}) => query)
 );
 

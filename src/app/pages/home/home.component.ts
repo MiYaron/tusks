@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { Path } from '../../app.paths';
 import { TasksListComponent } from '../../tasks/tasks-list/tasks-list.component';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
-import { Path } from '../../app.paths';
 
 @Component({
   selector: 'app-home',
