@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { TasksListComponent } from '../../tasks/tasks-list/tasks-list.component';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
-import { TASK } from '../../app.paths';
+import { Path } from '../../app.paths';
 
 @Component({
   selector: 'app-home',
@@ -13,9 +13,9 @@ import { TASK } from '../../app.paths';
 })
 
 export class HomeComponent {
-  private router: Router = inject(Router);
+  private router = inject(Router);
 
   public addTask(): void {
-    this.router.navigate([TASK]);
+    this.router.navigate([Path.TASK]);
   }
 }

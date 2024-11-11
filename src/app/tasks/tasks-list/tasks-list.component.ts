@@ -18,9 +18,14 @@ import { AppState } from '../../state/app.state';
 })
 export class TasksListComponent implements OnInit{
   private store: Store<AppState> = inject(Store);
-  public tasks$: Observable<Task[]> = this.store.select(selectTasks);
+  public tasks$!: Observable<Task[]>;
 
   public ngOnInit(): void {
+    this.initFields();
+  }
+
+  private initFields() : void {
     this.store.dispatch(StorageActions['load']());
+    this.tasks$ = this.store.select(selectTasks);
   }
 }

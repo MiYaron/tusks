@@ -1,24 +1,24 @@
 import { Routes } from '@angular/router';
 import { DetailsComponent } from './pages/details/details.component';
 import { HomeComponent } from './pages/home/home.component';
-import { HOME, TASK } from './app.paths';
+import { Path } from './app.paths';
 
 export const routes: Routes = [
     {
-        path: HOME,
+        path: Path.HOME,
         component: HomeComponent,
     },
     {
-        path: TASK,
+        path: Path.TASK,
         component: DetailsComponent,
     },
     {
-        path: `${TASK}/:id`,
+        path: `${Path.TASK}/:id`,
         component: DetailsComponent,
     },
     {
         path: "",
-        redirectTo: HOME,
+        redirectTo: Path.HOME,
         pathMatch: 'full',
     }
 ];

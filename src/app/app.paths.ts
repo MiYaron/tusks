@@ -1,2 +1,4 @@
-export const HOME = 'home'
-export const TASK = 'task'
+export const Path = {
+    HOME: 'home',
+    TASK: 'task'
+}

@@ -32,15 +32,9 @@ export class DetailsComponent implements OnInit{
   public deadline = "2024-11-05";
 
   public ngOnInit(): void {
-    this.activatedRoute.paramMap.pipe(
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe(params => {
-      this.taskId = params.get('id') || '';
-      if (this.taskId !== '') {
-        this.task$ = this.store.select(selectTaskById(this.taskId))
-      }
-    });
+    this.initFields();
   }
+
 
   public saveTask(event: Event): void {
     event.preventDefault();
@@ -55,6 +49,17 @@ export class DetailsComponent implements OnInit{
 
     
     this.router.navigate([""]);
+  }
+
+  private initFields(): void {
+    this.activatedRoute.paramMap.pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(params => {
+      this.taskId = params.get('id') || '';
+      if (this.taskId !== '') {
+        this.task$ = this.store.select(selectTaskById(this.taskId))
+      }
+    });
   }
 
   private buildTask(): Task {

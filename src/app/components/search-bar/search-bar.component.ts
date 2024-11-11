@@ -17,9 +17,15 @@ export class SearchBarComponent implements OnInit{
   private store: Store<AppState> = inject(Store);
   private destroyRef = inject(DestroyRef); 
 
-  public query = new FormControl('', [Validators.required]);
+  public query!: FormControl;
 
   public ngOnInit(): void {
+    this.initFields();
+  }
+
+  private initFields(): void {
+    this.query = new FormControl('', [Validators.required]);
+
     this.query.valueChanges.pipe(
       debounceTime(500),
       distinctUntilChanged(),
