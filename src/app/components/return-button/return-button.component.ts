@@ -10,7 +10,7 @@ import { Path } from '../../app.paths';
   styleUrl: './return-button.component.css'
 })
 export class ReturnButtonComponent {
-  private router: Router = inject(Router);
+  private router = inject(Router);
 
   public goHome(): void {
     this.router.navigate([Path.HOME]);
