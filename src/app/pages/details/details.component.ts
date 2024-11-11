@@ -15,9 +15,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrl: './details.component.css'
 })
 export class DetailsComponent implements OnInit {
-  private route!: ActivatedRoute;
-  private taskService!: TaskService;
-  private destroyRef!: DestroyRef;
+  private route = inject(ActivatedRoute);;
+  private taskService = inject(TaskService);
+  private destroyRef = inject(DestroyRef);
   
   public task$?: Observable<Task | undefined>;
 
@@ -26,10 +26,6 @@ export class DetailsComponent implements OnInit {
   }
 
   private initFields(): void {
-    this.route = inject(ActivatedRoute);
-    this.taskService = inject(TaskService);
-    this.destroyRef = inject(DestroyRef);
-
     this.route.paramMap.pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe(params => {
