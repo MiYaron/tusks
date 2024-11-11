@@ -1,7 +1,37 @@
 li {
     display: flex;
+    align-items: center;
+    gap: 5%;
+    background-color: var(--solid-white);
+    padding: 25px 20px;
+    margin-bottom: 10px;
+    box-shadow: var(--item-shadow);
+    cursor: grab;
 }
 
-.done {
+.checkbox {
+    height: 28px;
+    width: 28px;
+    background-image: url('../../../../assets/images/task_mark_uncompleted.svg');
+    background-size: contain;
+    background-repeat: no-repeat; 
+    background-position: center;
+    cursor: pointer;
+}
+
+.checkbox.done {
+    background-image: url('../../../../assets/images/task_mark_completed.svg');
+}
+
+.task-title {
+    color: var(--text-secondary);
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.task-title.done {
+    color: var(--text-disabled);
     text-decoration: line-through;
 }
