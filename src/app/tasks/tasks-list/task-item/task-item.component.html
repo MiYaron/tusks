@@ -1,10 +1,12 @@
 <li [id]="task.id" [appDrag]="{onDrag: deleteTask.bind(this), onClick: showDetails.bind(this)}">
-  <div 
-    class="checkbox" 
-    [ngClass]="task.isDone? 'done' : ''" 
-    (pointerdown) = "markAsDone($event)"
-    (pointerup)="stopPropagation($event)"
-  ></div>
+  <input 
+    type="checkbox" 
+    [checked]="task.isDone" 
+    (change)="markAsDone($event)" 
+    (pointerdown)="stopPropagation($event)" 
+    (pointerup)="stopPropagation($event)" 
+    class="checkbox"
+  >
   <p
     class="task-title"
     [ngClass]="task.isDone ? 'done' : ''"
