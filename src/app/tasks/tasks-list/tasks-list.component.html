@@ -1,1 +1,12 @@
-<p>tasks-list works!</p>
+<div>
+  @for(taskGroup of (tasks$ | async | groupTasks); track taskGroup.date) {
+  <div>
+    <div class="task-date-header">{{ taskGroup.date }}</div>
+    <ul>
+      @for(task of taskGroup.tasks; track task.id) {
+      <app-task-item [task]="task"></app-task-item>
+      }
+    </ul>
+  </div>
+  }
+</div>

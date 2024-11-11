@@ -1,39 +1,27 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { StorageActions, TaskActions } from '../../state/tasks/task.actions';
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
 import { Task } from '../task.model';
-import { selectAllTasks } from '../../state/tasks/task.selectors';
+import { TaskService } from '../task.service';
+import { GroupTasksPipe } from '../group-tasks.pipe';
+import { TaskItemComponent } from './task-item/task-item.component';
 
 @Component({
   selector: 'app-tasks-list',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, GroupTasksPipe, TaskItemComponent],
   templateUrl: './tasks-list.component.html',
   styleUrl: './tasks-list.component.css',
 })
 export class TasksListComponent implements OnInit{
-  private store: Store = inject(Store);
-  public tasks$ = this.store.select(selectAllTasks);
+  private taskService = inject(TaskService);
+  public tasks$!: Observable<Task[]>;
 
-  private mock = {
-    title: 'Mock Task',
-    desc: 'This is just a mock and not a real task',
-    deadline: new Date('2024-11-24'),
+  public ngOnInit(): void {
+    this.initFields();
   }
 
-  public ngOnInit() {
-    this.store.dispatch(StorageActions['[Storage]LoadTasks']());
-  }
-
-  public addTask(title: string, desc: string, deadline: Date) {
-    const task: Task = {
-      id: Date.now().toString(),
-      title: this.mock.title,
-      desc: this.mock.desc,
-      deadline: this.mock.deadline.toString(),
-      isDone: false,
-    }
-    
-    this.store.dispatch(TaskActions['[Tasks]AddTask']({task}));
+  private initFields() : void {
+    this.tasks$ = this.taskService.getTasks();
   }
 }

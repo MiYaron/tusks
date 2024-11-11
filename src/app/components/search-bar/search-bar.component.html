@@ -1,0 +1,4 @@
+<div>
+  <input id="search-box" name="search" [formControl]="title" />
+  <button (click)="search()" [disabled]="!title.valid">Search</button>
+</div>
