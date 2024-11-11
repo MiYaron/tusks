@@ -24,17 +24,16 @@ export class DetailsComponent implements OnInit{
   private activatedRoute = inject(ActivatedRoute);
   private router = inject(Router);
 
-  private taskId: string = '';
+  private taskId!: string;
 
-  public task$?: Observable<Task | undefined>;
-  public title = "Mock Title";
-  public desc = "Mock Description";
-  public deadline = "2024-11-05";
+  public task$!: Observable<Task | undefined>;
+  public title!: string;
+  public desc!: string;
+  public deadline!: string;
 
   public ngOnInit(): void {
     this.initFields();
   }
-
 
   public saveTask(event: Event): void {
     event.preventDefault();
@@ -46,12 +45,17 @@ export class DetailsComponent implements OnInit{
     } else {
       this.store.dispatch((TaskActions['edit']({task: this.buildTask()})));
     }
-
     
     this.router.navigate([""]);
   }
 
   private initFields(): void {
+    this.taskId = ''
+    this.title = "Task to do sometime"
+    this.desc = "This is a task that is needed to be done by some random date"
+    this.deadline = "2024-11-05"
+
+
     this.activatedRoute.paramMap.pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe(params => {
