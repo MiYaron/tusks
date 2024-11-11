@@ -1,0 +1,33 @@
+main {
+    background: var(--background-gradient-light);
+}
+
+#header {
+    position: sticky;
+    top: 0;
+    background: var(--background-gradient-fade);
+    width: 100%;
+    min-height: 250px;
+    max-height: 300px;
+    padding: 0 7vw 7vw;
+    z-index: 2;
+}
+
+#logo {
+    width: 100%;
+    background-image: url('../../../assets/images/tusks_logo.png');
+    background-size: contain;
+    background-repeat: no-repeat; 
+    background-position: center;
+    margin: 20px 0;
+    transition: height 0.3s linear;
+}
+
+#add {
+    width: 100%;
+    margin: 10px 0;
+}
+
+app-tasks-list {
+    width: 100%;
+}
