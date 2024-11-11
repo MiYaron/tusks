@@ -19,9 +19,7 @@ export class SearchBarComponent implements OnInit{
     this.initFields();
   }
 
-
   private initFields(): void {
     this.title = new FormControl('', [Validators.required]);
   }
-
 }
