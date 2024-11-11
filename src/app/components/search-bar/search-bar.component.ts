@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -8,11 +8,20 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.css'
 })
-export class SearchBarComponent {
-  public title = new FormControl('', [Validators.required]);
+export class SearchBarComponent implements OnInit{
+  public title!: FormControl;
 
   public search(): void {
     this.title.setValue('');
+  }
+
+  public ngOnInit(): void {
+    this.initFields();
+  }
+
+
+  private initFields(): void {
+    this.title = new FormControl('', [Validators.required]);
   }
 
 }

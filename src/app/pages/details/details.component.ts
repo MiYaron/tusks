@@ -1,5 +1,5 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Task } from '../../tasks/task.model';
 import { TaskService } from '../../tasks/task.service';
 import { ActivatedRoute } from '@angular/router';
@@ -15,20 +15,27 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrl: './details.component.css'
 })
 export class DetailsComponent implements OnInit {
-  private route: ActivatedRoute = inject(ActivatedRoute);
-  private ts: TaskService = inject(TaskService);
-  private destroyRef: DestroyRef = inject(DestroyRef);
+  private route!: ActivatedRoute;
+  private taskService!: TaskService;
+  private destroyRef!: DestroyRef;
   
   public task$?: Observable<Task | undefined>;
-  public subscription?: Subscription;
 
   public ngOnInit(): void {
-    this.subscription = this.route.paramMap.pipe(
+    this.initFields();
+  }
+
+  private initFields(): void {
+    this.route = inject(ActivatedRoute);
+    this.taskService = inject(TaskService);
+    this.destroyRef = inject(DestroyRef);
+
+    this.route.paramMap.pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe(params => {
       const taskId = params.get('id');
       if (taskId) {
-        this.task$ = this.ts.getTaskById(taskId)
+        this.task$ = this.taskService.getTaskById(taskId)
       }
     });
   }
