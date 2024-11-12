@@ -47,17 +47,12 @@ export class DetailsComponent implements OnInit{
     this.activatedRoute.paramMap.pipe(
       takeUntilDestroyed(this.destroyRef),
       switchMap(params => {
-        const taskId = params.get('id');
-        if (taskId) {
-          this.action = 'edit';
-          return this.store.select(selectTaskById(taskId)).pipe(take(1));
-        } else {
-          this.action = 'add';
-          return of(this.newTask());
-        }
+        const taskId = params.get('id') ?? '';
+        return this.store.select(selectTaskById(taskId)).pipe(take(1));
       })
     ).subscribe(task => {
-      this.task = task!; 
+      this.action = task? 'edit' : 'add'; 
+      this.task = task || this.newTask(); 
     });
   }
 
