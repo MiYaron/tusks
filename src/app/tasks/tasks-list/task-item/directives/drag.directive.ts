@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Renderer2, Input, OnInit, HostListener } from '@angular/core';
 
-export interface DragOptions {
+export interface ElemActions {
   onDrag?: () => void;
   onClick?: () => void;
 }
@@ -13,18 +13,18 @@ export class DragDirective implements OnInit {
   private el: ElementRef = inject(ElementRef);
   private renderer: Renderer2 = inject(Renderer2);
 
-  private element: any;
+  private element!: any;
   private startX!: number;
   private isDragged!: boolean;
   private holdDuration!: number;    
   private timeout!: NodeJS.Timeout;
 
-  @Input() appDrag?: DragOptions;
+  @Input() appDrag?: ElemActions;
 
   public ngOnInit(): void {
     this.initFields();
 
-    this.renderer.setStyle(this.element,'touch-action','none');
+    this.renderer.setStyle(this.element,'touch-action','pan-y');
   }
 
   @HostListener('pointerdown', ['$event']) onPointerDown(event: PointerEvent) {
@@ -32,7 +32,6 @@ export class DragDirective implements OnInit {
 
     this.startX = clientX;
     this.timeout = setTimeout(() => {
-      console.log ("IS DRAGGED")
       this.isDragged = true;
     }, this.holdDuration);
   }
