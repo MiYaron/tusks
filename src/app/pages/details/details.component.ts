@@ -2,7 +2,7 @@ import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { take } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 
@@ -10,10 +10,10 @@ import {v4 as uuid} from 'uuid';
 
 import { Path } from '../../app.paths';
 import { Task } from '../../tasks/task.model';
-import { ReturnButtonComponent } from '../../components/return-button/return-button.component';
+import { AppState } from '../../state/app.state';
 import { selectTaskById } from '../../state/tasks/task.selectors';
 import { TaskActions } from '../../state/tasks/task.actions';
-import { AppState } from '../../state/app.state';
+import { ReturnButtonComponent } from '../../components/return-button/return-button.component';
 
 @Component({
   selector: 'app-details',
@@ -28,12 +28,8 @@ export class DetailsComponent implements OnInit{
   private activatedRoute = inject(ActivatedRoute);
   private router = inject(Router);
 
-  private taskId!: string;
-
-  public task$!: Observable<Task | undefined>;
-  public title!: string;
-  public desc!: string;
-  public deadline!: string;
+  public task!: Task;
+  private action!: 'add' | 'edit';
 
   public ngOnInit(): void {
     this.initFields();
@@ -42,39 +38,33 @@ export class DetailsComponent implements OnInit{
   public saveTask(event: Event): void {
     event.preventDefault();
 
-    if (this.taskId === '') {
-      this.taskId = uuid();
-      this.deadline = this.mockDate();
-      this.store.dispatch((TaskActions['add']({task: this.buildTask()})));
-    } else {
-      this.store.dispatch((TaskActions['edit']({task: this.buildTask()})));
-    }
+    this.store.dispatch((TaskActions[this.action]({task: this.task})));
     
     this.router.navigate([Path.HOME]);
   }
 
   private initFields(): void {
-    this.taskId = ''
-    this.title = "Task to do sometime"
-    this.desc = "This is a task that is needed to be done by some random date"
-    this.deadline = "2024-11-05"
-
     this.activatedRoute.paramMap.pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe(params => {
-      this.taskId = params.get('id') || '';
-      if (this.taskId !== '') {
-        this.task$ = this.store.select(selectTaskById(this.taskId))
+      const taskId = params.get('id');
+      if (taskId) {
+        this.action = 'edit';
+        this.store.select(selectTaskById(taskId)).pipe(take(1))
+        .subscribe(task => task ? this.task = task : this.task = this.newTask());
+      } else {
+        this.action = 'add';
+        this.task = this.newTask();
       }
     });
   }
 
-  private buildTask(): Task {
+  private newTask(): Task {
     return {
-      id: this.taskId,
-      title: this.title,
-      desc: this.desc,
-      deadline: this.deadline,
+      id: uuid(),
+      title: 'Mock Task Title',
+      desc: 'This is a description for a mock task with random deadline',
+      deadline: this.mockDate(),
       isDone: false,
     }
   }
