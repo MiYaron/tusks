@@ -17,12 +17,18 @@ li {
     background-size: contain;
     background-repeat: no-repeat; 
     background-position: center;
+    border: 0;
+    padding: 0;
     cursor: pointer;
-  }
+}
   
-  .checkbox:checked {
+.checkbox:checked {
     background-image: url('../../../../assets/images/task_mark_completed.svg');
-  }
+}
+
+.checkbox:focus {
+    outline: 0;
+}
 
 .task-title {
     color: var(--text-secondary);
@@ -35,13 +41,4 @@ li {
 .task-title.done {
     color: var(--text-disabled);
     text-decoration: line-through;
-}
-
-input {
-    background-color: none;
-    border: 0;
-    padding: 0;
-}
-input:focus {
-    outline: 0;
 }

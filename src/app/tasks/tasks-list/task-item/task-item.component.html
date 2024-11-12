@@ -1,11 +1,11 @@
 <li [id]="task.id" [appDrag]="{onDrag: deleteTask.bind(this), onClick: showDetails.bind(this)}">
   <input 
     type="checkbox" 
+    class="checkbox"
     [checked]="task.isDone" 
     (change)="markAsDone($event)" 
     (pointerdown)="stopPropagation($event)" 
     (pointerup)="stopPropagation($event)" 
-    class="checkbox"
   >
   <p
     class="task-title"
