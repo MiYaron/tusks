@@ -1,20 +1,17 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, of } from 'rxjs';
-import { Mock, Task } from './task.model';
+import { Task } from './task.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TaskService {
-  private tasks$: Observable<Task[]> = of(Mock.getListOfTasks(10))
- 
-  public getTasks(): Observable<Task[]> {
-    return this.tasks$;
+export class TaskService { 
+  public async getTasks(): Promise<Task[]> {
+    const tasks = localStorage.getItem('tasks');
+
+    return tasks? await JSON.parse(tasks) : [];
   }
 
-  public getTaskById(id: string): Observable<Task | undefined> {
-    return this.tasks$.pipe(
-      map(tasks => tasks.find(task => task.id === id))
-    );
+  public async setTasks(tasks: Task[]): Promise<void> {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
   }
 }

@@ -1,4 +1,13 @@
 <app-return-button />
-<h2>{{ (task$ | async)?.title }}</h2>
-<h4>{{ (task$ | async)?.deadline }}</h4>
-<p>{{ (task$ | async)?.desc }}</p>
+<form (submit)="saveTask($event)">
+  <input id="task-title" name="task-title" type="text" placeholder="Title" />
+  <textarea
+    id="task-desc"
+    name="task-desc"
+    type="text"
+    placeholder="Description"
+  ></textarea>
+  <label for="task-deadline">Due Date:</label>
+  <input id="task-deadline" name="task-deadline" type="datetime-local" />
+  <input type="submit" value="Save Task" />
+</form>

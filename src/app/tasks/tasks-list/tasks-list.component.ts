@@ -1,10 +1,13 @@
+import { GroupTasksPipe } from './../group-tasks.pipe';
 import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { StorageActions } from '../../state/tasks/task.actions';
 import { Task } from '../task.model';
-import { TaskService } from '../task.service';
-import { GroupTasksPipe } from '../group-tasks.pipe';
+import { selectTasks } from '../../state/tasks/task.selectors';
+import { CommonModule } from '@angular/common';
 import { TaskItemComponent } from './task-item/task-item.component';
+import { Observable } from 'rxjs';
+import { AppState } from '../../state/app.state';
 
 @Component({
   selector: 'app-tasks-list',
@@ -14,7 +17,7 @@ import { TaskItemComponent } from './task-item/task-item.component';
   styleUrl: './tasks-list.component.css',
 })
 export class TasksListComponent implements OnInit{
-  private taskService = inject(TaskService);
+  private store: Store<AppState> = inject(Store);
   public tasks$!: Observable<Task[]>;
 
   public ngOnInit(): void {
@@ -22,6 +25,7 @@ export class TasksListComponent implements OnInit{
   }
 
   private initFields() : void {
-    this.tasks$ = this.taskService.getTasks();
+    this.store.dispatch(StorageActions['load']());
+    this.tasks$ = this.store.select(selectTasks);
   }
 }
