@@ -17,7 +17,7 @@ import { Path } from '../../../app.paths';
 export class TaskItemComponent {
   private store: Store<AppState> = inject(Store);
   private router = inject(Router);
-  @Input() task!: Task;
+  @Input({required: true}) task!: Task;
 
   public showDetails(): void {
     this.router.navigate([Path.TASK, this.task.id]);
