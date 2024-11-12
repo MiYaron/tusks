@@ -1,4 +1,4 @@
-import { Component, HostListener, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Path } from '../../app.paths';
@@ -10,7 +10,8 @@ import { SearchBarComponent } from '../../components/search-bar/search-bar.compo
   standalone: true,
   imports: [CommonModule, TasksListComponent, SearchBarComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class HomeComponent {
