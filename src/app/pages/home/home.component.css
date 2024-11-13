@@ -4,10 +4,10 @@ main {
 
 #header {
     position: sticky;
+    top: 0;
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    top: 0;
     background: var(--background-gradient-fade);
     width: 100%;
     min-height: 13rem;
@@ -24,10 +24,41 @@ main {
     transition: height 0.3s linear;
 }
 
+#items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
 #add {
     width: 100%;
 }
 
 app-tasks-list {
     width: 100%;
+}
+
+@media (min-width: 768px) {
+    #header {
+        background-color: var(--solid-white);
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        min-height: fit-content;
+    }
+
+    #logo {
+        flex: 1;
+        width: fit-content;
+        background-position: left;
+    }
+    
+    #items {
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    #add {
+        width: fit-content;
+    }
 }
