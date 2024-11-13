@@ -1,7 +1,7 @@
 main {
     background: var(--background-gradient-primary);
     padding: 5vw;
-    gap: 20px;
+    gap: 1rem;
 }
 
 #logo {
@@ -18,7 +18,7 @@ form {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0.5rem;
     background-color: white;
     padding: 5%;
 
@@ -36,7 +36,6 @@ form {
         border-bottom: 1px solid var(--solid-grey);
         font-size: 1.5rem;
         font-weight: bold;
-        
         padding: 0;
     }
 
