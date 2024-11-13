@@ -1,1 +1,80 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+	--background-gradient-light: linear-gradient(190deg, rgba(255,255,255,1) 0%, rgb(240, 250, 240) 30%);
+	--background-gradient-primary: linear-gradient(190deg, rgba(56,239,125,1) 0%, rgba(17,153,142,1) 100%);
+	--background-gradient-fade: linear-gradient(180deg, rgb(255, 255, 255) 50%, rgba(255, 255, 255, 0) 100%);
+	--background-gradient-danger: linear-gradient(310deg, rgba(170,37,86,1) 0%, rgba(237,66,100,1) 100%);
+	--text-primary: #2B3433;
+	--text-secondary: #43504F;
+	--text-disabled: #B1C5C5;
+	--text-danger: #ED4264;
+
+	--solid-primary: #38EF7D;
+	--solid-secondary: #11998E;
+	--solid-grey: #CFE5E5;
+	--solid-darkgrey: #B1C5C5;
+	--solid-white: #FFFFFF;
+
+	--item-shadow: rgba(0, 0, 0, 0.05) 0px 3px 5px;
+
+    font-size: 20px;
+}
+
+* {
+    font-family: "Roboto", sans-serif;
+    color:  var(--text-primary);
+    text-decoration: none;
+    box-sizing: border-box;
+	border-radius: 15px;
+	gap: 1rem;
+    padding: 0;
+    margin: 0;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+	border-radius: 0;
+    min-height: 100vh;
+}
+
+p, pre, span {
+	border-radius: 0;
+}
+
+button {
+	background: var(--background-gradient-primary);
+	border: 0;
+	color: var(--solid-white);
+	padding: 0.5rem 1.5rem;
+	height: 2.2rem;
+	font-size: 1rem;
+	cursor: pointer;
+}
+
+input {
+	border: 1px solid var(--solid-grey);
+	font-size: 1rem;
+	padding: 0.5rem 1rem;
+	width: 100%;
+	height: 2.2rem;
+}
+
+input:focus {
+	outline: 2px solid var(--solid-grey)
+}
+
+input[type="submit"] {
+	cursor: pointer;
+}
+
+input[type="submit"]:hover {
+	cursor: pointer;
+	background-color: var(--solid-primary);
+}
+
+::placeholder {
+	color: var(--text-disabled);
+	opacity: 1;
+	font-size: 1rem;
+}

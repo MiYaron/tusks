@@ -1,16 +1,17 @@
 import { Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { Path } from '../../../app.paths';
 import { Task } from '../../task.model';
 import { AppState } from '../../../state/app.state';
 import { TaskActions } from '../../../state/tasks/task.actions';
-import { Path } from '../../../app.paths';
+import { DragDirective } from './directives/drag.directive';
 
 @Component({
   selector: 'app-task-item',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DragDirective],
   templateUrl: './task-item.component.html',
   styleUrl: './task-item.component.css'
 })
@@ -23,11 +24,16 @@ export class TaskItemComponent {
     this.router.navigate([Path.TASK, this.task.id]);
   }
 
-  public markAsDone(): void {
+  public markAsDone(event: Event): void {
+    this.stopPropagation(event);
     this.store.dispatch(TaskActions['mark']({id: this.task.id}));
   }
   
   public deleteTask(): void {
     this.store.dispatch(TaskActions['remove']({id: this.task.id}));
+  }
+
+  public stopPropagation(event: Event): void {
+    event.stopPropagation();
   }
 }
