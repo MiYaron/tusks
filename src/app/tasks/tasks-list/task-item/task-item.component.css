@@ -1,7 +1,6 @@
 li {
     display: flex;
     align-items: center;
-    gap: 5%;
     background-color: var(--solid-white);
     padding: 1.5rem 1rem;
     margin-bottom: 0.5rem;
