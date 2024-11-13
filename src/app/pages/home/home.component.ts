@@ -6,8 +6,9 @@ import { TasksListComponent } from '../../tasks/tasks-list/tasks-list.component'
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
 
 const BREAK_POINT = 768;
-const MOBILE_LOGO_SIZE = 100;
-const DESKTOP_LOGO_SIZE = 80;
+const MOBILE_LOGO_SIZE = 5;
+const DESKTOP_LOGO_SIZE = 4;
+const SENSITIVITY = 20;
 
 @Component({
   selector: 'app-home',
@@ -29,7 +30,7 @@ export class HomeComponent implements OnInit {
   onWindowScroll() {
     if (window.innerWidth < BREAK_POINT) {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      this.logoHeight = Math.max(MOBILE_LOGO_SIZE - scrollTop, 0);
+      this.logoHeight = Math.max(MOBILE_LOGO_SIZE - scrollTop/SENSITIVITY, 0);
     } else {
       this.logoHeight = DESKTOP_LOGO_SIZE;
     }
