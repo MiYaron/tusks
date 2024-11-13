@@ -19,7 +19,11 @@ main {
     background-size: contain;
     background-repeat: no-repeat; 
     background-position: center;
-    transition: height 0.3s linear;
+    transition: height 0.3s ease-out;
+}
+
+#logo.hidden {
+    display: none;
 }
 
 #items {
