@@ -2,7 +2,7 @@ import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { of, switchMap, take } from 'rxjs';
+import { switchMap, take } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 
@@ -28,8 +28,8 @@ export class DetailsComponent implements OnInit{
   private activatedRoute = inject(ActivatedRoute);
   private router = inject(Router);
 
-  public task!: Task;
   private action!: 'add' | 'edit';
+  public task!: Task;
 
   public ngOnInit(): void {
     this.initFields();
