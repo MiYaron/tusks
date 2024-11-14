@@ -14,11 +14,12 @@ import { AppState } from '../../state/app.state';
 import { selectTaskById } from '../../state/tasks/task.selectors';
 import { TaskActions } from '../../state/tasks/task.actions';
 import { ReturnButtonComponent } from '../../components/return-button/return-button.component';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [CommonModule, ReturnButtonComponent],
+  imports: [CommonModule, ReactiveFormsModule, ReturnButtonComponent],
   templateUrl: './details.component.html',
   styleUrl: './details.component.css'
 })
@@ -29,7 +30,7 @@ export class DetailsComponent implements OnInit{
   private router = inject(Router);
 
   private action!: 'add' | 'edit';
-  public task!: Task;
+  public task!: FormGroup;
 
   public ngOnInit(): void {
     this.initFields();
@@ -38,7 +39,7 @@ export class DetailsComponent implements OnInit{
   public saveTask(event: Event): void {
     event.preventDefault();
 
-    this.store.dispatch((TaskActions[this.action]({task: this.task})));
+    this.store.dispatch((TaskActions[this.action]({task: this.task.value})));
     
     this.router.navigate([Path.HOME]);
   }
@@ -52,24 +53,17 @@ export class DetailsComponent implements OnInit{
       })
     ).subscribe(task => {
       this.action = task? 'edit' : 'add'; 
-      this.task = task || this.newTask(); 
+      this.task = this.generateForm(task); 
     });
   }
 
-  private newTask(): Task {
-    return {
-      id: uuid(),
-      title: 'Mock Task Title',
-      desc: 'This is a description for a mock task with random deadline',
-      deadline: this.mockDate(),
-      isDone: false,
-    }
-  }
-
-  private mockDate(): string {
-    const day = Math.floor(Math.random() * 2) + 15;
-    const month = Math.floor(Math.random() * 2) + 2;
-
-    return `2025-${month}-${day}`
+  private generateForm(task: Task | undefined) : FormGroup {
+    return new FormGroup ({
+      id: new FormControl<string>(task?.id || uuid()),
+      title: new FormControl<string>(task?.title || '', [Validators.required]),
+      desc: new FormControl<string>(task?.desc || ''),
+      deadline: new FormControl<string>(task?.deadline || '', [Validators.required]),
+      isDone: new FormControl<boolean>(task?.isDone || false),
+    })
   }
 }
