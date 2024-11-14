@@ -1,5 +1,5 @@
 <div id="list">
-  @for(taskGroup of (tasks$ | async | groupTasks); track taskGroup.date) {
+  @for(taskGroup of (tasks() | groupTasks); track taskGroup.date) {
   <div class="task-group">
     <h4>{{ taskGroup.date }}</h4>
     <ul>
