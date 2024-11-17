@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Path } from '../../app.paths';
 
@@ -7,7 +7,8 @@ import { Path } from '../../app.paths';
   standalone: true,
   imports: [],
   templateUrl: './return-button.component.html',
-  styleUrl: './return-button.component.css'
+  styleUrl: './return-button.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReturnButtonComponent implements OnInit{
   private router = inject(Router);
