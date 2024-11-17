@@ -1,4 +1,10 @@
-<button (click)="addTask()">Add</button>
-<h1>Tusks</h1>
-<app-search-bar></app-search-bar>
-<app-tasks-list></app-tasks-list>
+<main>
+    <div id="header">
+        <div id="logo" [ngStyle]="{ 'height.rem': logoHeight }" [ngClass]="logoHeight < 1? 'hidden' : ''"></div>
+        <div id="items">
+            <button id="add" (click)="addTask()">New Task</button>
+            <app-search-bar></app-search-bar>
+        </div>
+    </div>
+    <app-tasks-list></app-tasks-list>
+</main>

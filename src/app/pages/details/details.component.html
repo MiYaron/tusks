@@ -1,13 +1,16 @@
-<app-return-button />
-<form (submit)="saveTask($event)">
-  <input id="task-title" name="task-title" type="text" placeholder="Title" />
-  <textarea
+<main>
+  <app-return-button />
+  <div id="logo"></div>
+  <form (submit)="saveTask($event)">
+    <input id="task-title" name="task-title" type="text" placeholder="Title" />
+    <textarea
     id="task-desc"
     name="task-desc"
     type="text"
     placeholder="Description"
-  ></textarea>
-  <label for="task-deadline">Due Date:</label>
-  <input id="task-deadline" name="task-deadline" type="datetime-local" />
-  <input type="submit" value="Save Task" />
-</form>
+    ></textarea>
+    <label for="task-deadline">Due Date:</label>
+    <input id="task-deadline" name="task-deadline" type="datetime-local" />
+    <input type="submit" value="Save Task" />
+  </form>
+</main>
