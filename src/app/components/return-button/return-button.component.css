@@ -1,12 +1,12 @@
 button {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 1rem;
+    left: 1rem;
     background-color: var(--solid-grey);
-    width: 40px;
-    height: 40px;
+    width: 2rem;
+    height: 2rem;
     background-image: url('../../../assets/images/return.svg');
-    background-size: 22px;
+    background-size: 1.2rem;
     background-repeat: no-repeat; 
     background-position: center;
     box-shadow: var(--item-shadow);
