@@ -1,4 +1,4 @@
-<li [id]="task.id" [appDrag]="{onDrag: deleteTask.bind(this), onClick: showDetails.bind(this)}">
+<li [id]="task.id" [appDrag]="getElemActions()">
   <input 
     type="checkbox" 
     class="checkbox"
