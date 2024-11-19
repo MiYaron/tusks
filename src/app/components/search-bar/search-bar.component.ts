@@ -26,6 +26,7 @@ export class SearchBarComponent implements OnInit{
 
   private initFields(): void {
     this.query = new FormControl('');
+    this.store.dispatch(setQuery({query: ''}));
 
     this.query.valueChanges.pipe(
       debounceTime(500),
