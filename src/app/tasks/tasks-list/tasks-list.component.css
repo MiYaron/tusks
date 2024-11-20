@@ -8,10 +8,9 @@
 .task-group {
     border-radius: 0;
     width: 90%;
-    margin-bottom: 3vh;
 }
 
 h4 {
     font-size: 0.7rem;
-    margin: 5px;
+    margin: 0.3rem;
 }

@@ -49,16 +49,8 @@ export class DragDirective implements OnInit {
 
   @HostListener('pointerup', ['$event']) onPointerUp(event: PointerEvent) {
     clearTimeout(this.timeout);
-    if (this.isDragged) {
-      const clientX = event.clientX;
-      const delta = clientX - this.startX;
-
-      this.handleDrag(delta);
-
-      this.isDragged = false;
-    } else {
-      this.handleClick();
-    }
+    
+    this.isDragged ? this.handleDrag(event) : this.handleClick();
   }
 
   private initFields(): void {
@@ -72,7 +64,10 @@ export class DragDirective implements OnInit {
     this.renderer.setStyle(this.element, 'transform', `translateX(${position})`);
   }
 
-  private handleDrag(delta: number): void {
+  private handleDrag(event: PointerEvent): void {
+    const clientX = event.clientX;
+    const delta = clientX - this.startX;
+
     this.renderer.setStyle(this.element, 'transition', `transform 0.3s ease`);
 
     if (delta > window.innerWidth * 0.4) {
@@ -82,6 +77,8 @@ export class DragDirective implements OnInit {
     } else {
       this.transform('0');
     }
+
+    this.isDragged = false;
   }
 
   private handleClick(): void {

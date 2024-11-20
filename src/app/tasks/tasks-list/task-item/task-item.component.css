@@ -1,18 +1,17 @@
 li {
     display: flex;
     align-items: center;
-    gap: 5%;
     background-color: var(--solid-white);
-    padding: 25px 20px;
-    margin-bottom: 10px;
+    padding: 1.5rem 1rem;
+    margin-bottom: 0.5rem;
     box-shadow: var(--item-shadow);
     cursor: grab;
 }
 
 .checkbox {
     appearance: none;
-    height: 28px;
-    width: 28px;
+    height: 1.3rem;
+    width: 1.3rem;
     background-image: url('../../../../assets/images/task_mark_uncompleted.svg');
     background-size: contain;
     background-repeat: no-repeat; 
