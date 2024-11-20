@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
-import { DetailsComponent } from './pages/details/details.component';
-import { HomeComponent } from './pages/home/home.component';
 import { Path } from './app.paths';
+import { HomeComponent } from './pages/home/home.component';
 
 export const routes: Routes = [
     {
@@ -10,11 +9,11 @@ export const routes: Routes = [
     },
     {
         path: Path.TASK,
-        component: DetailsComponent,
+        loadComponent: () => import('./pages/details/details.component').then(((m) => m.DetailsComponent ))
     },
     {
         path: `${Path.TASK}/:id`,
-        component: DetailsComponent,
+        loadComponent: () => import('./pages/details/details.component').then(((m) => m.DetailsComponent ))
     },
     {
         path: "",

@@ -1,5 +1,5 @@
 import { GroupTasksPipe } from './../group-tasks.pipe';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { StorageActions } from '../../state/tasks/task.actions';
 import { Task } from '../task.model';
@@ -15,6 +15,7 @@ import { AppState } from '../../state/app.state';
   imports: [CommonModule, GroupTasksPipe, TaskItemComponent],
   templateUrl: './tasks-list.component.html',
   styleUrl: './tasks-list.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TasksListComponent implements OnInit{
   private store: Store<AppState> = inject(Store);

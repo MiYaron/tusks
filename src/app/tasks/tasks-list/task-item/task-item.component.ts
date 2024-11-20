@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
@@ -6,18 +6,20 @@ import { Path } from '../../../app.paths';
 import { Task } from '../../task.model';
 import { AppState } from '../../../state/app.state';
 import { TaskActions } from '../../../state/tasks/task.actions';
-import { DragDirective } from './directives/drag.directive';
+import { DragDirective, ElemActions } from './directives/drag.directive';
 
 @Component({
   selector: 'app-task-item',
   standalone: true,
   imports: [CommonModule, DragDirective],
   templateUrl: './task-item.component.html',
-  styleUrl: './task-item.component.css'
+  styleUrl: './task-item.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskItemComponent {
   private store: Store<AppState> = inject(Store);
   private router = inject(Router);
+
   @Input({required: true}) task!: Task;
 
   public showDetails(): void {
@@ -35,5 +37,12 @@ export class TaskItemComponent {
 
   public stopPropagation(event: Event): void {
     event.stopPropagation();
+  }
+
+  public getElemActions(): ElemActions {
+    return {
+      onClick: () => this.showDetails(),
+      onDrag: ()=> this.deleteTask(),
+    }
   }
 }

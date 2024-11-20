@@ -1,8 +1,8 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { take } from 'rxjs';
+import { switchMap, take } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 
@@ -20,7 +20,8 @@ import { ReturnButtonComponent } from '../../components/return-button/return-but
   standalone: true,
   imports: [CommonModule, ReturnButtonComponent],
   templateUrl: './details.component.html',
-  styleUrl: './details.component.css'
+  styleUrl: './details.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DetailsComponent implements OnInit{
   private store: Store<AppState> = inject(Store);
@@ -28,8 +29,8 @@ export class DetailsComponent implements OnInit{
   private activatedRoute = inject(ActivatedRoute);
   private router = inject(Router);
 
-  public task!: Task;
   private action!: 'add' | 'edit';
+  public task!: Task;
 
   public ngOnInit(): void {
     this.initFields();
@@ -45,17 +46,14 @@ export class DetailsComponent implements OnInit{
 
   private initFields(): void {
     this.activatedRoute.paramMap.pipe(
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe(params => {
-      const taskId = params.get('id');
-      if (taskId) {
-        this.action = 'edit';
-        this.store.select(selectTaskById(taskId)).pipe(take(1))
-        .subscribe(task => task ? this.task = task : this.task = this.newTask());
-      } else {
-        this.action = 'add';
-        this.task = this.newTask();
-      }
+      takeUntilDestroyed(this.destroyRef),
+      switchMap(params => {
+        const taskId = params.get('id') ?? '';
+        return this.store.select(selectTaskById(taskId)).pipe(take(1));
+      })
+    ).subscribe(task => {
+      this.action = task? 'edit' : 'add'; 
+      this.task = task || this.newTask(); 
     });
   }
 

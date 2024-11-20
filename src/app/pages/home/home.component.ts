@@ -1,4 +1,4 @@
-import { Component, HostListener, inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Path } from '../../app.paths';
@@ -15,7 +15,8 @@ const SENSITIVITY = 20;
   standalone: true,
   imports: [CommonModule, TasksListComponent, SearchBarComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class HomeComponent implements OnInit {
