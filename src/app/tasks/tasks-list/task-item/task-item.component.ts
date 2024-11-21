@@ -6,7 +6,7 @@ import { Path } from '../../../app.paths';
 import { Task } from '../../task.model';
 import { AppState } from '../../../state/app.state';
 import { TaskActions } from '../../../state/tasks/task.actions';
-import { DragDirective } from './directives/drag.directive';
+import { DragDirective, ElemActions } from './directives/drag.directive';
 
 @Component({
   selector: 'app-task-item',
@@ -37,5 +37,12 @@ export class TaskItemComponent {
 
   public stopPropagation(event: Event): void {
     event.stopPropagation();
+  }
+
+  public getElemActions(): ElemActions {
+    return {
+      onClick: () => this.showDetails(),
+      onDrag: ()=> this.deleteTask(),
+    }
   }
 }
