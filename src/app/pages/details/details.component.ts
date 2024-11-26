@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -14,11 +14,12 @@ import { AppState } from '../../state/app.state';
 import { selectTaskById } from '../../state/tasks/task.selectors';
 import { TaskActions } from '../../state/tasks/task.actions';
 import { ReturnButtonComponent } from '../../components/return-button/return-button.component';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [CommonModule, ReturnButtonComponent],
+  imports: [CommonModule, ReactiveFormsModule, ReturnButtonComponent],
   templateUrl: './details.component.html',
   styleUrl: './details.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,8 +31,9 @@ export class DetailsComponent implements OnInit{
   private router = inject(Router);
 
   private action!: 'add' | 'edit';
-  public task!: Task;
-
+  public task!: FormGroup;
+  public error!: WritableSignal<string>;
+  
   public ngOnInit(): void {
     this.initFields();
   }
@@ -39,12 +41,15 @@ export class DetailsComponent implements OnInit{
   public saveTask(event: Event): void {
     event.preventDefault();
 
-    this.store.dispatch((TaskActions[this.action]({task: this.task})));
-    
-    this.router.navigate([Path.HOME]);
+    if (this.validationCheck()) {
+      this.store.dispatch((TaskActions[this.action]({task: this.task.value})));
+      this.router.navigate([Path.HOME]);
+    }
   }
 
   private initFields(): void {
+    this.error = signal('');
+    
     this.activatedRoute.paramMap.pipe(
       takeUntilDestroyed(this.destroyRef),
       switchMap(params => {
@@ -53,24 +58,35 @@ export class DetailsComponent implements OnInit{
       })
     ).subscribe(task => {
       this.action = task? 'edit' : 'add'; 
-      this.task = task || this.newTask(); 
+      this.task = this.generateForm(task); 
     });
   }
 
-  private newTask(): Task {
-    return {
-      id: uuid(),
-      title: 'Mock Task Title',
-      desc: 'This is a description for a mock task with random deadline',
-      deadline: this.mockDate(),
-      isDone: false,
-    }
+  private generateForm(task: Task | undefined) : FormGroup {
+    return new FormGroup ({
+      id: new FormControl<string>(task?.id ?? uuid()),
+      title: new FormControl<string>(task?.title ?? '', [Validators.required]),
+      desc: new FormControl<string>(task?.desc ?? ''),
+      deadline: new FormControl<string>(task?.deadline ?? '', [Validators.required]),
+      isDone: new FormControl<boolean>(task?.isDone ?? false),
+    })
   }
 
-  private mockDate(): string {
-    const day = Math.floor(Math.random() * 2) + 15;
-    const month = Math.floor(Math.random() * 2) + 2;
+  private validationCheck () {
+    const title = this.task.get("title");
+    const deadline = this.task.get("deadline");
 
-    return `2025-${month}-${day}`
+    if (!title?.valid) {
+      this.error.set('Task must have a title');
+      return false;
+    }
+
+    if (!deadline?.valid) {
+      this.error.set('Task must have a valid date and time');
+      return false;
+    }
+
+    this.error.set ('');
+    return true;
   }
 }

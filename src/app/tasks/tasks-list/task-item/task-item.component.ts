@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
@@ -20,19 +20,19 @@ export class TaskItemComponent {
   private store: Store<AppState> = inject(Store);
   private router = inject(Router);
 
-  @Input({required: true}) task!: Task;
-
+  task = input.required<Task>();
+  
   public showDetails(): void {
-    this.router.navigate([Path.TASK, this.task.id]);
+    this.router.navigate([Path.TASK, this.task().id]);
   }
 
   public markAsDone(event: Event): void {
     this.stopPropagation(event);
-    this.store.dispatch(TaskActions['mark']({id: this.task.id}));
+    this.store.dispatch(TaskActions['mark']({id: this.task().id}));
   }
   
   public deleteTask(): void {
-    this.store.dispatch(TaskActions['remove']({id: this.task.id}));
+    this.store.dispatch(TaskActions['remove']({id: this.task().id}));
   }
 
   public stopPropagation(event: Event): void {

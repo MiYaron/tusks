@@ -50,3 +50,9 @@ form {
         width: 100%;
     }
 }
+
+.error {
+    color: var(--text-danger);
+    font-size: 0.8rem;
+    align-self: center;
+}

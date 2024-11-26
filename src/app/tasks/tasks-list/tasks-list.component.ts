@@ -1,13 +1,13 @@
-import { GroupTasksPipe } from './../group-tasks.pipe';
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { StorageActions } from '../../state/tasks/task.actions';
-import { Task } from '../task.model';
-import { selectTasks } from '../../state/tasks/task.selectors';
 import { CommonModule } from '@angular/common';
-import { TaskItemComponent } from './task-item/task-item.component';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, inject, Injector, OnInit, Signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { Store } from '@ngrx/store';
 import { AppState } from '../../state/app.state';
+import { Task } from '../task.model';
+import { StorageActions } from '../../state/tasks/task.actions';
+import { GroupTasksPipe } from './../group-tasks.pipe';
+import { selectTasks } from '../../state/tasks/task.selectors';
+import { TaskItemComponent } from './task-item/task-item.component';
 
 @Component({
   selector: 'app-tasks-list',
@@ -19,7 +19,9 @@ import { AppState } from '../../state/app.state';
 })
 export class TasksListComponent implements OnInit{
   private store: Store<AppState> = inject(Store);
-  public tasks$!: Observable<Task[]>;
+  private injector = inject(Injector);
+  
+  public tasks!: Signal<Task[]>;
 
   public ngOnInit(): void {
     this.initFields();
@@ -27,6 +29,6 @@ export class TasksListComponent implements OnInit{
 
   private initFields() : void {
     this.store.dispatch(StorageActions['load']());
-    this.tasks$ = this.store.select(selectTasks);
+    this.tasks = toSignal(this.store.select(selectTasks), {initialValue: [], injector: this.injector});
   }
 }

@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Renderer2, Input, OnInit, HostListener } from '@angular/core';
+import { Directive, ElementRef, inject, Renderer2, OnInit, HostListener, input } from '@angular/core';
 
 export interface ElemActions {
   onDrag?: () => void;
@@ -19,7 +19,7 @@ export class DragDirective implements OnInit {
   private holdDuration!: number;    
   private timeout!: NodeJS.Timeout;
 
-  @Input() appDrag?: ElemActions;
+  appDrag = input<ElemActions>()
 
   public ngOnInit(): void {
     this.initFields();
@@ -73,7 +73,7 @@ export class DragDirective implements OnInit {
     if (delta > window.innerWidth * 0.4) {
       this.transform('100vw');
 
-      setTimeout(()=>this.appDrag?.onDrag?.(), 200);
+      setTimeout(()=>this.appDrag()?.onDrag?.(), 200);
     } else {
       this.transform('0');
     }
@@ -82,6 +82,6 @@ export class DragDirective implements OnInit {
   }
 
   private handleClick(): void {
-    this.appDrag?.onClick?.();
+    this.appDrag()?.onClick?.();
   }
 }
