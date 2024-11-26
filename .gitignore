@@ -42,3 +42,8 @@ testem.log
 Thumbs.db
 
 *storybook.log
+
+
+
+.nx/cache
+.nx/workspace-data

@@ -1,0 +1,99 @@
+{
+  "name": "tusks",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "generators": {},
+  "sourceRoot": "apps/tusks/src",
+  "prefix": "app",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "options": {
+        "outputPath": "dist/apps/tusks",
+        "index": "apps/tusks/src/index.html",
+        "browser": "apps/tusks/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/tusks/tsconfig.app.json",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/tusks/public"
+          }
+        ],
+        "styles": ["apps/tusks/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kB",
+              "maximumError": "1MB"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kB",
+              "maximumError": "4kB"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "tusks:build:production"
+        },
+        "development": {
+          "buildTarget": "tusks:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n"
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "polyfills": ["zone.js", "zone.js/testing"],
+        "tsConfig": "apps/tusks/tsconfig.spec.json",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/tusks/public"
+          }
+        ],
+        "styles": ["apps/tusks/src/styles.css"],
+        "scripts": []
+      }
+    },
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "configDir": ".storybook",
+        "browserTarget": "tusks:build",
+        "compodoc": false,
+        "port": 6006
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "options": {
+        "configDir": ".storybook",
+        "browserTarget": "tusks:build",
+        "compodoc": false,
+        "outputDir": "storybook-static"
+      }
+    }
+  }
+}

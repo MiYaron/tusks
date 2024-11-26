@@ -1,0 +1,13 @@
+<li [id]="task().id" [appDrag]="getElemActions()">
+  <input
+    type="checkbox"
+    class="checkbox"
+    [checked]="task().isDone"
+    (change)="markAsDone($event)"
+    (pointerdown)="stopPropagation($event)"
+    (pointerup)="stopPropagation($event)"
+  />
+  <p class="task-title" [ngClass]="task().isDone ? 'done' : ''">
+    {{ task().title }}
+  </p>
+</li>

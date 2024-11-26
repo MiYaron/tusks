@@ -1,0 +1,18 @@
+button {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background-color: var(--solid-grey);
+  width: 2rem;
+  height: 2rem;
+  background-image: url('../../../assets/images/return.svg');
+  background-size: 1.2rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: var(--item-shadow);
+  padding: 0;
+}
+
+button:hover {
+  background-color: var(--solid-darkgrey);
+}

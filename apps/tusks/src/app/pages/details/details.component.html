@@ -1,0 +1,29 @@
+<main>
+  <app-return-button />
+  <div id="logo"></div>
+  <form [formGroup]="task" (submit)="saveTask($event)">
+    <input
+      id="task-title"
+      name="task-title"
+      type="text"
+      placeholder="Title"
+      formControlName="title"
+    />
+    <textarea
+      id="task-desc"
+      name="task-desc"
+      type="text"
+      placeholder="Description"
+      formControlName="desc"
+    ></textarea>
+    <label for="task-deadline">Due Date:</label>
+    <input
+      id="task-deadline"
+      name="task-deadline"
+      type="datetime-local"
+      formControlName="deadline"
+    />
+    <input type="submit" value="Save Task" />
+    <p class="error">{{ error() }}</p>
+  </form>
+</main>

@@ -1,0 +1,64 @@
+main {
+  background: var(--background-gradient-light);
+}
+
+#header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--background-gradient-fade);
+  width: 100%;
+  min-height: 13rem;
+  padding: 1rem 7vw;
+  z-index: 2;
+}
+
+#logo {
+  background-image: url('../../../assets/images/tusks_logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: height 0.3s ease-out;
+}
+
+#logo.hidden {
+  display: none;
+}
+
+#items {
+  display: flex;
+  flex-direction: column;
+}
+
+#add {
+  width: 100%;
+}
+
+app-tasks-list {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  #header {
+    background-color: var(--solid-white);
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-height: fit-content;
+  }
+
+  #logo {
+    flex: 1;
+    background-position: left;
+  }
+
+  #items {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  #add {
+    width: fit-content;
+  }
+}
